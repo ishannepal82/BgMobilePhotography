@@ -1,4 +1,3 @@
-import React from 'react'
 import LoginForm from '../components/login-form'
 import {User2Icon } from 'lucide-react'
 
