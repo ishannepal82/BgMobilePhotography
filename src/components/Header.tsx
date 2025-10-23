@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // Using lucide-react icons
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -17,9 +19,11 @@ export default function Header() {
     <header className="w-full sticky top-0 z-50 bg-background/50 backdrop-blur-xl border-b border-primary/20 shadow-lg text-text font-body">
       <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <h1 className="text-primary font-heading text-2xl sm:text-4xl font-bold">
+        <button className='cursor-pointer' onClick={() => navigate('/')}>
+          <h1 className="text-primary font-heading text-2xl sm:text-4xl font-bold">
           BgMobile<span className="text-accent">Photography</span>
         </h1>
+        </button>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex gap-8 items-center">

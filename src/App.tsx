@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import GalleryPage from './pages/GalleryPage'
 import Layout from './Layout'
+import LoginPage from './pages/Login'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
           <Route element={<Layout />}>
             <Route index element = {<HomePage/>}/>
             <Route path='/gallery' element = {<GalleryPage />} />
+            <Route path='/user' element = {<LoginPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
