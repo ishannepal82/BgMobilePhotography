@@ -1,37 +1,73 @@
-# 📸 BgMobilePhotography — Mobile Photography Portfolio & Admin Hub
+# React + TypeScript + Vite
 
-BgMobilePhotography is a modern web application that showcases mobile photography in an elegant, theme-customizable interface.  
-It serves as both a **public gallery** for visitors and a **private admin dashboard** for authenticated contributors using **Firebase Authentication**.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🚀 Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### 🖼️ Photography Gallery
-- Beautiful grid-based photo display
-- Optimized image loading (lazy load + responsive sizing)
-- Dynamic lightbox for full-screen previews
+## React Compiler
 
-### 🔐 Admin Dashboard
-- Secure login via **Firebase Authentication**
-- Add, edit, and delete photos with metadata (title, category, tags, etc.)
-- Real-time updates synced via Firestore or Storage (optional)
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-### 🎨 Custom Themed UI
-- Built with a **custom React UI kit** using Tailwind CSS or styled-components
-- Supports light/dark themes
-- Fully responsive layout for mobile-first experience
+## Expanding the ESLint configuration
 
-### ⚙️ Tech Stack
-| Layer | Technology |
-|-------|-------------|
-| **Frontend** | React + TypeScript |
-| **Authentication** | Firebase Auth |
-| **Backend / Storage** | Firebase Firestore + Storage |
-| **Styling** | Custom Themed UI (Tailwind or Styled Components) |
-| **Deployment** | Vercel / Firebase Hosting (configurable) |
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
----
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-## 🧩 Project Structure
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
