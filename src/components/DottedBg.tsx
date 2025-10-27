@@ -10,6 +10,7 @@ export function DotBackground() {
         [mask-image:radial-gradient(circle_at_center,black_20%,transparent_100%)]
         "
     />
+    
     </div>
   );
 }

@@ -9,11 +9,12 @@ export default function Header() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const menuItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Feed', href: '#feed' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', url:'/' },
+    { name: 'Gallery', url: '/gallery' },
+    { name: 'Feed', url: '/feed' },
+    { name: 'Contact', url: '/contact' },
   ];
+
 
   return (
     <header className="w-full sticky top-0 z-50 bg-background/50 backdrop-blur-xl border-b border-primary/20 shadow-lg text-text font-body">
@@ -30,7 +31,7 @@ export default function Header() {
           {menuItems.map((item) => (
             <a
               key={item.name}
-              href={item.href}
+              onClick={() => navigate(item.url)}
               className="hover:text-primary transition-colors duration-300"
             >
               {item.name}
@@ -52,7 +53,6 @@ export default function Header() {
           {menuItems.map((item) => (
             <a
               key={item.name}
-              href={item.href}
               className="hover:text-primary transition-colors duration-300"
               onClick={() => setIsOpen(false)} // close menu on click
             >
