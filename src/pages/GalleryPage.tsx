@@ -23,13 +23,15 @@ const Albums: Albums[] = [
   ]
 
 export default function GalleryPage() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => setIsOpen(!isOpen);
   return (
     <>
     {isOpen && (
-        <AlbumView albumTitle={Albums[0].title} albumDescription={Albums[0].title} albumImages={Albums[0].images}/>
+        <AlbumView albumTitle={Albums[0].title} albumDescription={Albums[0].title} albumImages={Albums[0].images} onClose={toggleModal}/>
     )}
-    <div className="h-full w-full p-4 bg-background text-white relative ">
+    <div className="h-[100%] sm:h-screen w-full p-4 bg-background text-white relative ">
       <div className="flex justify-between items-center text-text font-accent w-full text-center">
         <h1 className="font-heading text-4xl text-text w-full">Gallery</h1>
       </div>
@@ -40,7 +42,7 @@ export default function GalleryPage() {
           ))}
         </div>
       </div>
-      <div className="scale-[95%] z-10 h-[100vh]">
+      <div className="scale-[95%] z-10 h-[100%] sm:h-full">
         <GalleryCluster Albums={Albums}/>
       </div>
     </div>
