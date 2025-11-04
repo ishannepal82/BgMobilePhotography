@@ -13,6 +13,7 @@ export default function Header() {
     { name: 'Gallery', url: '/gallery' },
     { name: 'Feed', url: '/feed' },
     { name: 'Contact', url: '/contact' },
+    { name: 'Login', url: '/user'}
   ];
 
 
@@ -27,7 +28,7 @@ export default function Header() {
         </button>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex gap-8 items-center">
+        <nav className="hidden md:flex gap-8 items-center cursor-pointer">
           {menuItems.map((item) => (
             <a
               key={item.name}
@@ -54,7 +55,10 @@ export default function Header() {
             <a
               key={item.name}
               className="hover:text-primary transition-colors duration-300"
-              onClick={() => setIsOpen(false)} // close menu on click
+              onClick={() => {
+                setIsOpen(false);
+                navigate(item.url);
+              }} 
             >
               {item.name}
             </a>
