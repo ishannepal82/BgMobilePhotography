@@ -2,6 +2,8 @@ import GalleryCluster from "../components/gallerypage/GalleryCluster";
 import RadialButton from "../components/gallerypage/radial-button";
 import { useState } from "react";
 import AlbumView from "../components/gallerypage/AlbumView";
+import { useDashboard } from "../hooks/admin/useDashboard";
+import { useQuery } from "@tanstack/react-query";
 
 type Albums = {
   title: string;
@@ -24,8 +26,15 @@ const Albums: Albums[] = [
 
 export default function GalleryPage() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleModal = () => setIsOpen(!isOpen);
+
+  const {handleGetDashboard} = useDashboard();
+  const {data} = useQuery({
+    queryKey:["gallery"], 
+    queryFn: handleGetDashboard
+  });
+  console.log(data);
+  
   return (
     <>
     {isOpen && (

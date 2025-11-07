@@ -1,3 +1,4 @@
+import Modal from "../modal";
 
 export default function AlbumView({
   albumTitle,
@@ -11,17 +12,7 @@ export default function AlbumView({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      {/* Modal Container */}
-      <div className="bg-background/30 rounded-2xl shadow-2xl p-6 w-[90%] max-w-3xl max-h-[90vh] overflow-y-auto relative">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold"
-        >
-          &times;
-        </button>
-
+   <Modal onClose={onClose}>
         {/* Title Section */}
         <div className="mb-4 text-center text-primary">
           <h1 className="text-2xl font-bold">{albumTitle}</h1>
@@ -39,7 +30,7 @@ export default function AlbumView({
             />
           ))}
         </div>
-      </div>
-    </div>
+    </Modal>
+
   );
 }

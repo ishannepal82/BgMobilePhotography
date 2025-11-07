@@ -6,7 +6,7 @@ import LoginPage from './pages/Login'
 import AdminPannel from './pages/admin/AdminPannel'
 
 function App() {
-
+  const token = localStorage.getItem('token');
   return (
     <>
       <BrowserRouter>
@@ -15,7 +15,7 @@ function App() {
             <Route index element = {<HomePage/>}/>
             <Route path='/gallery' element = {<GalleryPage />} />
             <Route path='/user' element = {<LoginPage />} />
-            <Route path='admin/home' element = {<AdminPannel />} />
+            {token && <Route path='/admin/home' element = {<AdminPannel />} />}
           </Route>
         </Routes>
       </BrowserRouter>

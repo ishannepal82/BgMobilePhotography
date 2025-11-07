@@ -1,7 +1,7 @@
 export default function GalleryCluster({Albums} : {Albums: {title: string, images: string[]}[]}) {
   return (
     <>
-     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center place-items-center mt-6">
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center place-items-center mt-6">
         {Albums.map((Album) => (
           <div className="relative w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden group">
           <img

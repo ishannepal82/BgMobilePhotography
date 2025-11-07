@@ -1,17 +1,20 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCjJEjb8b8C4deUrK-2DWLZkiO2W-lg2Yo",
-  authDomain: "bg-mobile-photography.firebaseapp.com",
-  projectId: "bg-mobile-photography",
-  storageBucket: "bg-mobile-photography.firebasestorage.app",
-  messagingSenderId: "221930080767",
-  appId: "1:221930080767:web:087dd2c2b19384eb447fca",
-  measurementId: "G-EW9WQGSDJ1"
+  apiKey: "AIzaSyCFTP8Ey3LI22z3bqeANONM3QgT7NrsetM",
+  authDomain: "bgmobilephotography.firebaseapp.com",
+  projectId: "bgmobilephotography",
+  storageBucket: "bgmobilephotography.firebasestorage.app",
+  messagingSenderId: "210410959859",
+  appId: "1:210410959859:web:b5e2268ce04869174f1886",
+  measurementId: "G-HSD9XY24E3"
 };
 
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, app, db };
