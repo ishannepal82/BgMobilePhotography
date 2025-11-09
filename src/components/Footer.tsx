@@ -2,7 +2,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="sticky w-full bg-accent/90 backdrop-blur-lg text-text py-3 shadow-md z-50">
+    <footer className="sticky w-full bg-accent/90 backdrop-blur-lg text-text py-3 shadow-md -z-100">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4">
         
         {/* Logo / Brand */}

@@ -17,10 +17,12 @@ export default function LoginForm() {
     // Fetching the user idToken from firebase and storing it 
     const userCredentials =  await doLoginwithEmailandPassword(email, password);
     const user = userCredentials.user;
-    const tokenId = await user.getIdToken(); // Get the user's ID token
+    const tokenId = await user.getIdToken(); 
     localStorage.setItem( 'token', tokenId);
+    setTimeout(() => {
+      navigate('/admin/home', { state: { loggedIn: true}});
+    }, 2000);   // Get the user's ID token
     setIsLoading(false);
-    navigate('/admin/home', { state: { loggedIn: true}});
     
   } catch (error) {
     console.error(error);

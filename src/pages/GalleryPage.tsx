@@ -46,18 +46,18 @@ export default function GalleryPage() {
         </Modal>
       )}
       {!loading && (
-        <div className="h-[100%] sm:h-screen w-full p-4 bg-background text-white relative ">
+        <div className="h-[100%] w-full p-4 bg-background text-white relative ">
           <div className="flex justify-between items-center text-text font-accent w-full text-center">
             <h1 className="font-heading text-4xl text-text w-full">Gallery</h1>
           </div>
           <div>
             <div className="flex items-center gap-4 justify-center flex-wrap">
-              {FilterData.map((item) => (
+              {FilterData?.splice(0, 4).map((item) => (
                 <RadialButton key={item.id} content={item.title} />
               ))}
             </div>
           </div>
-          <div className="scale-[95%] z-10 h-[100%] sm:h-full">
+          <div className="scale-[95%] z-10 h-[100%] sm:h-[100vh]">
             <GalleryCluster Albums={albums} />
           </div>
         </div>

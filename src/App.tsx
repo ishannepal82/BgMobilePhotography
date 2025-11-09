@@ -4,6 +4,7 @@ import GalleryPage from './pages/GalleryPage'
 import Layout from './Layout'
 import LoginPage from './pages/Login'
 import AdminPannel from './pages/admin/AdminPannel'
+import FeedPage from './pages/FeedPage'
 
 function App() {
   const token = localStorage.getItem('token');
@@ -15,6 +16,7 @@ function App() {
             <Route index element = {<HomePage/>}/>
             <Route path='/gallery' element = {<GalleryPage />} />
             <Route path='/user' element = {<LoginPage />} />
+            <Route path='/feed' element = {<FeedPage />} />
             {token && <Route path='/admin/home' element = {<AdminPannel />} />}
           </Route>
         </Routes>
