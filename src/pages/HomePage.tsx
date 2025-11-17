@@ -1,45 +1,52 @@
 import ImageCluster from "../components/homepage/Imagecluster";
 import { DotBackground } from "../components/DottedBg";
 import { useNavigate } from "react-router-dom";
+
 export default function HomePage() {
   const navigate = useNavigate();
+
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <main className="relative min-h-screen w-full overflow-hidden">
       {/* Dotted background behind all content */}
-      <div className="inset-0 -z-10">
+      <div className="inset-0 z-50">
         <DotBackground />
       </div>
 
       {/* Hero Section */}
-      <div className="w-full min-h-screen bg-background/80 p-4 grid lg:grid-cols-2 items-center">
-        {/* Left Column */}
-        <div className="flex sm:w-[80%] m-auto gap-6 items-center">
-          <div className="flex flex-col gap-4 h-full text-center lg:text-left">
-            <h1 className="text-primary font- text-3xl sm:text-4xl font-bold">
-             Moments in Light, Shadows in Silence, Stories Untold
-            </h1>
-            <p className="text-text text-lg sm:text-xl font-body">
-              At BgMobilePhotography, we specialize in capturing fleeting moments and
-              transforming them into timeless memories through the lens of a mobile camera.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 py-4">
-              <button className="text-xl text-text rounded-md bg-secondary w-fit py-2 px-8 font-poppins hover:scale-105 transition-all duration-300 hover:bg-text hover:text-secondary cursor-pointer" onClick={() => navigate('/contact')}>
-                Contact Me
-              </button>
-              <button className="text-xl rounded-md bg-text text-secondary w-fit py-2 px-8 font-poppins hover:scale-105 transition-all duration-300 hover:bg-secondary hover:text-text cursor-pointer" onClick={() => navigate('/gallery')}>
-                Gallery
-              </button>
-            </div>
-          </div>
+      <section className="hero text-text text-lg font-body flex flex-col items-center m-8 relative mx-auto px-4">
+        <div className="main text-center w-1/2">
+          <h1 className="text-3xl md:text-4xl m-2 text-accent font-semibold py-2">
+            Capture the Moment
+          </h1>
+          <p className="mt-2 break-words text-base md:text-lg leading-relaxed">
+            Explore stunning photo collections that beautifully capture moments and tell your unique story.
+            Explore stunning photo collections that beautifully capture moments and tell your unique story.
+          </p>
         </div>
 
-        {/* Right Column */}
-        <div className="RightColumn w-full">
-          <ImageCluster />
+        <div className="actions flex gap-4 mt-6">
+          <button
+            onClick={() => navigate("/gallery")}
+            className="bg-secondary rounded-md px-4 py-2 hover:bg-text hover:text-secondary w-[160px] duration-300 transition-all focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Go to Gallery"
+          >
+            Gallery
+          </button>
+
+          <button
+            onClick={() => navigate("/contact")}
+            className="bg-text text-secondary rounded-md px-4 py-2 hover:bg-secondary hover:text-text duration-300 transition-all focus:outline-none focus:ring-2 focus:ring-accent w-[160px]"
+            aria-label="Go to Contact Me"
+          >
+            Contact Me
+          </button>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Image cluster */}
+      <section className="right-column w-full md:w-1/2 mx-auto mt-12 px-4">
+        <ImageCluster />
+      </section>
+    </main>
   );
 }
