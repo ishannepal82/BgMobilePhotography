@@ -34,13 +34,15 @@ export default function ControlsSection({ control }: { control: string }) {
     handleEmailChange,
     handleMessageChange,
     handleContactsFetch,
+    email,
+    message
   } = useContacts();
 
   const queryClient = useQueryClient();
   
   const {data, isLoading} = useQuery({
     queryKey: control === "Albums" ? ["albums"] : control === "Feed" ? ["feed"] : ["contacts"],
-    queryFn: control === "Albums" ? handleGetGallery : control === "Feed" ? handleGetFeed : handleContactsFetch
+    queryFn: (control === "Albums" ? handleGetGallery : control === "Feed" ? handleGetFeed : handleContactsFetch) as any
   });
 
   const items = Array.isArray(data) ? data.filter(item => item != null) : [];
@@ -76,9 +78,14 @@ export default function ControlsSection({ control }: { control: string }) {
     galleryMutation.mutate({ e, title });
   };
   
+  const handleContactsSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+  
   const getCurrentMutation = () => {
     if (control === "Albums") return galleryMutation;
     if (control === "Feed") return feedMutation;
+    return galleryMutation; // fallback
   };
 
   const currentMutation = getCurrentMutation();
@@ -402,7 +409,7 @@ export default function ControlsSection({ control }: { control: string }) {
                       id="email"
                       type="email" 
                       placeholder="Enter email address..." 
-                      value={email}
+                      value={email || ""}
                       onChange={(e) => handleEmailChange(e.target.value)}
                       required
                       className="w-full bg-secondary/50 border-2 border-primary/40 rounded-lg px-4 py-3 text-text placeholder-text/50 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200"
@@ -416,7 +423,7 @@ export default function ControlsSection({ control }: { control: string }) {
                     <textarea 
                       id="message"
                       placeholder="Enter message..."
-                      value={message}
+                      value={message || ""}
                       onChange={(e) => handleMessageChange(e.target.value)}
                       required
                       rows={5}
@@ -481,10 +488,10 @@ export default function ControlsSection({ control }: { control: string }) {
               <div className="flex gap-3 pt-4">
                 <button 
                   type="submit"
-                  disabled={currentMutation.isPending}
+                  disabled={currentMutation?.isPending}
                   className="flex-1 bg-accent text-primary font-semibold py-3 px-6 rounded-lg hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-accent shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
-                  {currentMutation.isPending ? (
+                  {currentMutation?.isPending ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -499,14 +506,14 @@ export default function ControlsSection({ control }: { control: string }) {
                 <button 
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  disabled={currentMutation.isPending}
+                  disabled={currentMutation?.isPending}
                   className="px-6 py-3 bg-transparent border-2 border-text/30 text-text font-semibold rounded-lg hover:bg-text/10 focus:outline-none focus:ring-2 focus:ring-text/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>
               </div>
               
-              {currentMutation.isError && (
+              {currentMutation?.isError && (
                 <div className="mt-4 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
                   <p className="text-red-200 text-sm">
                     Failed to create {control}. Please try again.
