@@ -8,10 +8,21 @@ import useContacts from "../../hooks/useContacts";
 
 type ViewMode = "table" | "card";
 
+type DataItem = {
+  title?: string;
+  images?: string[];
+  email?: string;
+  message?: string;
+  description?: string;
+  createdAt?: string;
+};
+
 export default function ControlsSection({ control }: { control: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("table");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const { 
     handleGetGallery, 
@@ -34,15 +45,33 @@ export default function ControlsSection({ control }: { control: string }) {
     handleEmailChange,
     handleMessageChange,
     handleContactsFetch,
-    email,
-    message
   } = useContacts();
 
   const queryClient = useQueryClient();
   
-  const {data, isLoading} = useQuery({
-    queryKey: control === "Albums" ? ["albums"] : control === "Feed" ? ["feed"] : ["contacts"],
-    queryFn: (control === "Albums" ? handleGetGallery : control === "Feed" ? handleGetFeed : handleContactsFetch) as any
+  const getQueryConfig = () => {
+    if (control === "Albums") {
+      return {
+        queryKey: ["albums"] as const,
+        queryFn: handleGetGallery
+      };
+    }
+    if (control === "Feed") {
+      return {
+        queryKey: ["feed"] as const,
+        queryFn: handleGetFeed
+      };
+    }
+    return {
+      queryKey: ["contacts"] as const,
+      queryFn: handleContactsFetch
+    };
+  };
+
+  const queryConfig = getQueryConfig();
+  const {data, isLoading} = useQuery<DataItem[]>({
+    queryKey: queryConfig.queryKey,
+    queryFn: queryConfig.queryFn as () => Promise<DataItem[]>
   });
 
   const items = Array.isArray(data) ? data.filter(item => item != null) : [];
@@ -85,13 +114,13 @@ export default function ControlsSection({ control }: { control: string }) {
   const getCurrentMutation = () => {
     if (control === "Albums") return galleryMutation;
     if (control === "Feed") return feedMutation;
-    return galleryMutation; // fallback
+    return galleryMutation;
   };
 
   const currentMutation = getCurrentMutation();
 
   // Card Components
-  const AlbumCard = ({ item, index }: { item: any; index: number }) => (
+  const AlbumCard = ({ item, index }: { item: DataItem; index: number }) => (
     <div className="bg-secondary/20 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-primary/30">
       <div className="h-48 bg-primary/20 flex items-center justify-center overflow-hidden">
         {item.images && item.images.length > 0 ? (
@@ -134,7 +163,7 @@ export default function ControlsSection({ control }: { control: string }) {
     </div>
   );
 
-  const FeedCard = ({ item, index }: { item: any; index: number }) => (
+  const FeedCard = ({ item, index }: { item: DataItem; index: number }) => (
     <div className="bg-secondary/20 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-primary/30">
       <div className="h-48 bg-primary/20 flex items-center justify-center overflow-hidden">
         {item.images && item.images.length > 0 ? (
@@ -178,7 +207,7 @@ export default function ControlsSection({ control }: { control: string }) {
     </div>
   );
 
-  const ContactCard = ({ item, index }: { item: any; index: number }) => (
+  const ContactCard = ({ item, index }: { item: DataItem; index: number }) => (
     <div className="bg-secondary/20 rounded-lg p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-primary/30">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
@@ -409,8 +438,11 @@ export default function ControlsSection({ control }: { control: string }) {
                       id="email"
                       type="email" 
                       placeholder="Enter email address..." 
-                      value={email || ""}
-                      onChange={(e) => handleEmailChange(e.target.value)}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        handleEmailChange(e.target.value);
+                      }}
                       required
                       className="w-full bg-secondary/50 border-2 border-primary/40 rounded-lg px-4 py-3 text-text placeholder-text/50 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200"
                     />
@@ -423,8 +455,11 @@ export default function ControlsSection({ control }: { control: string }) {
                     <textarea 
                       id="message"
                       placeholder="Enter message..."
-                      value={message || ""}
-                      onChange={(e) => handleMessageChange(e.target.value)}
+                      value={message}
+                      onChange={(e) => {
+                        setMessage(e.target.value);
+                        handleMessageChange(e.target.value);
+                      }}
                       required
                       rows={5}
                       className="w-full bg-secondary/50 border-2 border-primary/40 rounded-lg px-4 py-3 text-text placeholder-text/50 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-200"
