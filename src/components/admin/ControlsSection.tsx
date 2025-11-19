@@ -148,8 +148,7 @@ export default function ControlsSection({ control }: { control: string }) {
               aria-label={`Delete album ${item.title}`}
               className="text-red-600 hover:bg-red-200 rounded-md p-1 transition-colors duration-200"
             >
-              <Trash2 size={18} />
-            </button>
+              <Trash2 size={18} />            </button>
           </div>
         </div>
         <div className="flex items-center justify-between text-sm">

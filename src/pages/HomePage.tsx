@@ -14,8 +14,8 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="hero text-text text-lg font-body flex flex-col items-center m-8 relative mx-auto px-4">
-        <div className="main text-center w-1/2">
-          <h1 className="text-3xl md:text-4xl m-2 text-accent font-semibold py-2">
+        <div className="main text-center w-1/2 animate-fade_in">
+          <h1 className="text-3xl md:text-4xl m-2 bg-gradient-to-tr bg-clip-text text-transparent from-primary  to-secondary font-semibold py-2">
             Capture the Moment
           </h1>
           <p className="mt-2 break-words text-base md:text-lg leading-relaxed">
@@ -24,7 +24,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="actions flex gap-4 mt-6">
+        <div className="actions flex gap-4 mt-6 animate-appear">
           <button
             onClick={() => navigate("/gallery")}
             className="bg-secondary rounded-md px-4 py-2 hover:bg-text hover:text-secondary w-[160px] duration-300 transition-all focus:outline-none focus:ring-2 focus:ring-accent"
